@@ -1,3 +1,4 @@
+let baseSpotifyApiUrl = 'https://api.spotify.com/v1'
 export function generateRandomString(length:Number) {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -37,29 +38,29 @@ export const getTrackInfo = async (token:string,url:string) => {
   console.log('[TrackInfo]' , data)
   return data
 }
-// export async function getToken(clientId:String, clientSecret:String) {
-//     const result = await fetch("https://accounts.spotify.com/api/token", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/x-www-form-urlencoded",
-//         Authorization: "Basic " + btoa(clientId + ":" + clientSecret),
-//       },
-//       body: "grant_type=client_credentials",
-//     });
-//     const data = await result.json();
-//     return data.access_token;
-//   }
- 
 
 export const getCurrentUserQueue = async (token:String) => {
   const result = await fetch(
-      'https://api.spotify.com/v1/me/player/queue',
+      baseSpotifyApiUrl +'/me/player/queue',
       {
           method: 'GET',
           headers: { Authorization: "Bearer " + token },
       }
   )
   const data = await result.json()
-  console.log('[CurrentUser]' , data)
+  console.log('[Current Queue]' , data)
+  return data
+}
+export const getCurrentSong = async (token:String) => {
+  const result = await fetch(
+    baseSpotifyApiUrl  + '/me/player/currently-playing',{
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    }
+  )
+  const data = await result.json()
+  console.log('[CurrentSong Data]', data)
   return data
 }
