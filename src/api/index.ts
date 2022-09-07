@@ -26,7 +26,7 @@ url += '&redirect_uri=' + encodeURIComponent(redirect_uri)
 url += '&state=' + encodeURIComponent(state)
 return url
 }
-export const getTrackInfo = async (token:string,url:string) => {
+export const getApiData = async (token:string,url:string) => {
   const result = await fetch(
       url,
       {
@@ -35,7 +35,7 @@ export const getTrackInfo = async (token:string,url:string) => {
       }
   )
   const data = await result.json()
-  console.log('[TrackInfo]' , data)
+  console.log('[getApiData]' , data)
   return data
 }
 
@@ -62,5 +62,19 @@ export const getCurrentSong = async (token:String) => {
   )
   const data = await result.json()
   console.log('[CurrentSong Data]', data)
+  return data
+}
+
+export const getPlayer = async (token:String) => {
+  const result = await fetch(
+    baseSpotifyApiUrl + '/me/player',{
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    }
+  )
+  const data = await result.json()
+  console.log('[PLAYER DATA]', data)
   return data
 }
