@@ -1,5 +1,4 @@
 !<template>
-<n-config-provider :theme="darkTheme">
     <n-table bordered>
         <thead>
         <tr>
@@ -14,19 +13,25 @@
             </tr>
         </tbody>
     </n-table>
-</n-config-provider>
 
 
 </template>
 <script setup lang="ts">
 import songItem from './songItem.vue'
-import { NTable, darkTheme, NConfigProvider } from 'naive-ui'
+import { NTable } from 'naive-ui'
 import { useDatosStore } from '../../stores/datosSpotify';
+const props = defineProps({
+    href: String
+})
 const authData = useDatosStore()
-const playlists = await authData.getUserPlaylists()
-const playlistUrl = playlists.items[1].href
-const data = await authData.getApiData(playlistUrl)
-const items = data.tracks.items
+console.log('[props]',props.href)
+// const likedSongs = await authData.getUserLikes()
+// const playlists = await authData.getUserPlaylists()
+// const playlistUrl = playlists.items[1].href
+ const data = await authData.getApiData(props.href)
+ const items = data.tracks.items
+// const items = likedSongs.items
+ console.log('likes',data)
 </script>
 <style scoped>
 

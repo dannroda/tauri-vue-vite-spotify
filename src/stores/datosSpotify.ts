@@ -62,7 +62,18 @@ export const useDatosStore = defineStore('main', {
             } catch (error) {
                 console.log('[error]', error)
             }
+        },
+        async getUserLikes(){
+            try {
+                console.log('[Liked Songs]')
+                return this.getApiData(apiBaseUrl + '/me/tracks')
+            } catch (error) {
+                console.log('[error]', error)    
+            }
         }
         
+    },
+    persist: {
+        enabled:true
     }
 })
